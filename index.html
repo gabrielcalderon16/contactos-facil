@@ -1,0 +1,207 @@
+<html>
+  <!-- TODO: Make a cards with the style of mocks. -->
+  <!-- TODO: add more funcitonality ex: filter and search -->
+  <head>
+    <title>Contactos facil</title>
+
+    <link rel="shortcut icon" href="assets/agenda.png" type="png">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link href="assets/index.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="js/index.js" type="module"></script>
+  </head>
+  
+
+  <body>
+  <div class="container py-3">
+    <!-- Navbar -->
+    <header class="p-3 mb-3 border-bottom">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+          <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <img src="assets/agenda.png" alt="logo app" width="40" height="40" class="me-2">
+            <span class="fs-4">Contáctos Fácil</span>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control" placeholder="Buscar..." aria-label="buscar">
+          </form>
+
+          <div class="text-end">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#formModal"
+            >
+              <span>
+                <i class="bi bi-plus p-1"></i>
+              </span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-header py-5 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Contáctos Fácil</h1>
+        <p class="fs-5 text-muted">Gestiona tus contactos de forma rápida y sencilla, acá podrás crear, editar, eliminar y buscar tus contactos con solo unos clics.</p>
+      </div>
+    </header>
+
+    <!-- App  -->
+    <main>
+      <div class="container">
+        <h1>Contáctos</h1>
+        <p class="fs-5 text-muted">Aquí puedes crear, leer, actualizar y eliminar tus contactos.</p>
+
+        <!-- Modal para el formulario -->
+        <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="formModalLabel">Contactos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                <p class="fs-1 text-center">
+                  <span class="bi bi-person-vcard"></span>
+                </p>
+                <div class="text-center">
+                  <h3 class="h3 mb-3 fw-normal">Agregar nuevo contacto</h3>
+                </div>
+                <p class="fw-light text-center">Maneja de forma sencilla y rápida todos tus contactos.</p>
+                <!-- Formulario -->
+                <form id="form-contacto" class="form-inline">
+                  <input type="hidden" id="id-contacto" value="" />
+                  <div class="row">
+                    <div class="col-12 col-sm-6 form-group my-2">
+                      <label for="nombre">Nombre:</label>
+                      <input type="text" id="nombre" class="form-control" required />
+                    </div>
+                    <div class="col-12 col-sm-6 form-group my-2">
+                      <label for="telefono">Teléfono:</label>
+                      <input type="text" id="telefono" class="form-control" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="rol">Rol:</label>
+                    <input type="text" id="rol" class="form-control" required placeholder="ej: Dentista"/>
+                  </div>
+                  <div class="form-group my-2">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="form-control" placeholder="ej: persona@mail.com"/>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" id="btn-guardar" class="btn btn-primary">
+                  Agregar
+                </button>
+                <button type="button" class="btn btn-secondary" id="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Cartas -->
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Free</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>10 users included</li>
+                  <li>2 GB of storage</li>
+                  <li>Email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Pro</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>20 users included</li>
+                  <li>10 GB of storage</li>
+                  <li>Priority email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-bg-primary border-primary">
+                <h4 class="my-0 fw-normal">Enterprise</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>30 users included</li>
+                  <li>15 GB of storage</li>
+                  <li>Phone and email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Cartas -->
+        <!-- Tabla de contactos -->
+        <table id="tabla-contactos" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </main>
+
+    <!-- Pie de página -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center pt-4 my-md-5 pt-md-5 border-top">
+        <p class="col-md-4 mb-0 text-muted">&copy; 2023 Gabriel Calderon, Todos los derechos reservados</p>
+
+        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <img src="assets/agenda.png" alt="logo app" width="40" height="40" class="me-2">
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Inicio</a></li>
+        </ul>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
