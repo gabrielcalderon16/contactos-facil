@@ -89,26 +89,6 @@ $(document).ready(function () {
   mostrarContactos();
 });
 
-// $("#form-contacto").submit(function (event) {
-//   event.preventDefault();
-//   if (validarFormulario()) {
-//     let id = $("#id-contacto").val();
-//     let nombre = $("#nombre").val();
-//     let telefono = $("#telefono").val();
-//     let email = $("#email").val();
-//     let contacto = { nombre: nombre, telefono: telefono, email: email };
-//     if (id == "") {
-//       agregarContacto(contacto);
-//       alert("Contacto agregado con éxito.");
-//     } else {
-//       actualizarContacto(id, contacto);
-//       alert("Contacto actualizado con éxito.");
-//     }
-//     limpiarFormulario();
-//     mostrarContactos();
-//   }
-// });
-
 $("#btn-cancelar").click(function () {
   limpiarFormulario();
 });
