@@ -11,7 +11,6 @@ const selectOrdenamiento = $("#ordenamiento")
 
 buscador.on("input", function() {
   var searchValue = $(this).val();
-  console.log(searchValue)
   mostrarContactos(searchValue)
 })
 
@@ -162,7 +161,6 @@ function validarFormulario() {
 
 function mostrarNotificacion(mensaje) {
   mensajeToast.html(`<p>${mensaje}</p>`)
-  console.log(mensajeToast.val());
   toastController.show()
 }
 
@@ -187,7 +185,6 @@ $("#btn-cancelar").click(function () {
 
 $("#btn-guardar").click(function () {
   if (validarFormulario()) {
-    console.log('se guardará')
     let id = $("#id-contacto").val();
     let nombre = $("#nombre").val();
     let telefono = $("#telefono").val();
