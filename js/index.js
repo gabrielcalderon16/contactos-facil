@@ -14,8 +14,6 @@ const mensajeToast = $("#toast-message")
 const containerAlerta = $("#container-alerta")
 const mensajeAlerta = $("#mensaje-alerta")
 
-// TODO: show containerAlerta
-
 buscador.on("input", function() {
   var searchValue = $(this).val();
   console.log(searchValue)
@@ -40,9 +38,9 @@ function guardarContactos(contactos) {
 }
 
 function mostrarContactos(search, sort) {
+  containerAlerta.addClass("d-none");
   let contactos = obtenerContactos();
 
-  
   if (search) {
     contactos = contactos.filter(({email, nombre, rol, telefono}) => {
       return nombre.toLowerCase().includes(search) || rol.toLowerCase().includes(search)
@@ -97,6 +95,15 @@ function mostrarContactos(search, sort) {
     `
     $("#cartas").append(carta);
   });
+
+  if (!contactos.length) {
+    if (search) {
+      mensajeAlerta.text("No se han encontrado contactos en tu busqueda. Prueba agregando nuevos contactos.")
+    } else {
+      mensajeAlerta.text("Aún no tienes contactos, prueba agregando uno.")
+    }
+    return containerAlerta.removeClass("d-none");
+  }
 }
 
 function agregarContacto(contacto) {
