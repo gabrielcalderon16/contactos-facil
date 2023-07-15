@@ -15,24 +15,39 @@ function guardarContactos(contactos) {
 
 function mostrarContactos() {
   let contactos = obtenerContactos();
-  $("#tabla-contactos tbody").empty();
-  for (let i = 0; i < contactos.length; i++) {
-    let contacto = contactos[i];
-    let fila = $("<tr></tr>");
-    fila.append($("<td></td>").text(contacto.nombre));
-    fila.append($("<td></td>").text(contacto.telefono));
-    fila.append($("<td></td>").text(contacto.email));
-    let btnEditar = $("<button></button>")
-      .text("Editar")
-      .addClass("btn btn-warning")
-      .attr("data-id", i);
-    let btnEliminar = $("<button></button>")
-      .text("Eliminar")
-      .addClass("btn btn-danger")
-      .attr("data-id", i);
-    fila.append($("<td></td>").append(btnEditar).append(btnEliminar));
-    $("#tabla-contactos tbody").append(fila);
-  }
+  $("#cartas").empty();
+  contactos.forEach((contacto, i) => {
+    let carta = `
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3 text-center">
+            <h4 class="my-0 fw-normal">${contacto.nombre}</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2 text-end">
+                <h5><i class="bi bi-person"></i></h5>
+              </div>
+              <div class="col-6">
+                <h5 class="card-title pricing-card-title">${contacto.rol}</h5>
+              </div>
+              <div class="col-4">
+                <div class="btn-group-sm" role="group" aria-label="Basic outlined example">
+                  <button type="button" class="btn btn-outline-primary" data-id="${i}"><i class="bi bi-pencil-square"></i></button>
+                  <button type="button" class="btn btn-outline-danger" data-id="${i}"><i class="bi bi-trash"></i></button>
+                </div>
+              </div>
+            </div>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li><span><i class="bi bi-telephone-fill"></i></span> ${contacto.telefono}</li>
+              <li><span><i class="bi bi-envelope-at"></i></span> ${contacto.email}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `
+    $("#cartas").append(carta);
+  });
 }
 
 function agregarContacto(contacto) {
@@ -56,6 +71,7 @@ function eliminarContacto(id) {
 function limpiarFormulario() {
   $("#id-contacto").val("");
   $("#nombre").val("");
+  $("#rol").val("");
   $("#telefono").val("");
   $("#email").val("");
 }
@@ -64,8 +80,13 @@ function validarFormulario() {
   let nombre = $("#nombre").val();
   let telefono = $("#telefono").val();
   let email = $("#email").val();
+  let rol = $("#rol").val();
   if (nombre == "" || telefono == "") {
     alert("Debes ingresar el nombre y el teléfono del contacto.");
+    return false;
+  }
+  if (rol == "") {
+    alert("Debes ingresar el rol del contacto.");
     return false;
   }
   if (email != "" && !email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)) {
@@ -82,6 +103,7 @@ function llenarFormulario(id) {
   $("#nombre").val(contacto.nombre);
   $("#telefono").val(contacto.telefono);
   $("#email").val(contacto.email);
+  $("#rol").val(contacto.rol);
 }
 
 // Funcionalidad al inicio de la aplicacion
@@ -99,8 +121,9 @@ $("#btn-guardar").click(function () {
     let id = $("#id-contacto").val();
     let nombre = $("#nombre").val();
     let telefono = $("#telefono").val();
+    let rol = $("#rol").val();
     let email = $("#email").val();
-    let contacto = { nombre: nombre, telefono: telefono, email: email };
+    let contacto = { nombre, telefono, email, rol };
     if (id == "") {
       formModal.hide()
       agregarContacto(contacto);
@@ -114,11 +137,11 @@ $("#btn-guardar").click(function () {
   }
 });
 
-$(document).on("click", ".btn-warning", function () {
+$(document).on("click", ".btn-outline-primary", function () {
   let id = $(this).attr("data-id");
   llenarFormulario(id);
 });
-$(document).on("click", ".btn-danger", function () {
+$(document).on("click", ".btn-outline-danger", function () {
   let id = $(this).attr("data-id");
   if (confirm("¿Estás seguro de que quieres eliminar este contacto?")) {
     eliminarContacto(id);
