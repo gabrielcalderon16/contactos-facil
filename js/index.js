@@ -3,6 +3,14 @@ const formModal = new bootstrap.Modal('#formModal', {})
 const buscador = $("#buscador")
 const selectOrdenamiento = $("#ordenamiento")
 
+$("#formModal").on("hidden.bs.modal", function () {
+  limpiarFormulario();
+});
+
+const toastId = $('#toastCustom')
+const toastController = bootstrap.Toast.getOrCreateInstance(toastId)
+const mensajeToast = $("#toast-message")
+
 buscador.on("input", function() {
   var searchValue = $(this).val();
   console.log(searchValue)
@@ -90,12 +98,14 @@ function agregarContacto(contacto) {
   let contactos = obtenerContactos();
   contactos.push(contacto);
   guardarContactos(contactos);
+  formModal.hide();
 }
 
 function actualizarContacto(id, contacto) {
   let contactos = obtenerContactos();
   contactos[id] = contacto;
   guardarContactos(contactos);
+  formModal.hide();
 }
 
 function eliminarContacto(id) {
@@ -118,18 +128,24 @@ function validarFormulario() {
   let email = $("#email").val();
   let rol = $("#rol").val();
   if (nombre == "" || telefono == "") {
-    alert("Debes ingresar el nombre y el teléfono del contacto.");
+    mostrarNotificacion("Debes ingresar el nombre y el teléfono del contacto.");
     return false;
   }
   if (rol == "") {
-    alert("Debes ingresar el rol del contacto.");
+    mostrarNotificacion("Debes ingresar el rol del contacto.");
     return false;
   }
   if (email != "" && !email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)) {
-    alert("Debes ingresar un email válido.");
+    mostrarNotificacion("Debes ingresar un email válido.");
     return false;
   }
   return true;
+}
+
+function mostrarNotificacion(mensaje) {
+  mensajeToast.html(`<p>${mensaje}</p>`)
+  console.log(mensajeToast.val());
+  toastController.show()
 }
 
 function llenarFormulario(id) {
@@ -163,10 +179,10 @@ $("#btn-guardar").click(function () {
     if (id == "") {
       formModal.hide()
       agregarContacto(contacto);
-      alert("Contacto agregado con éxito.");
+      mostrarNotificacion("Contacto agregado con éxito.");
     } else {
       actualizarContacto(id, contacto);
-      alert("Contacto actualizado con éxito.");
+      mostrarNotificacion("Contacto actualizado con éxito.");
     }
     limpiarFormulario();
     mostrarContactos();
@@ -175,13 +191,14 @@ $("#btn-guardar").click(function () {
 
 $(document).on("click", ".btn-outline-primary", function () {
   let id = $(this).attr("data-id");
+  formModal.show()
   llenarFormulario(id);
 });
 $(document).on("click", ".btn-outline-danger", function () {
   let id = $(this).attr("data-id");
   if (confirm("¿Estás seguro de que quieres eliminar este contacto?")) {
     eliminarContacto(id);
-    alert("Contacto eliminado con éxito.");
+    mostrarNotificacion("Contacto eliminado con éxito.");
     mostrarContactos();
   }
 });
