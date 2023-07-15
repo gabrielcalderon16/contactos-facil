@@ -1,18 +1,13 @@
-// *** Formulario ***
+//  Formulario 
 const formModal = new bootstrap.Modal('#formModal', {})
-const buscador = $("#buscador")
-const selectOrdenamiento = $("#ordenamiento")
 
 $("#formModal").on("hidden.bs.modal", function () {
   limpiarFormulario();
 });
 
-const toastId = $('#toastCustom')
-const toastController = bootstrap.Toast.getOrCreateInstance(toastId)
-const mensajeToast = $("#toast-message")
-
-const containerAlerta = $("#container-alerta")
-const mensajeAlerta = $("#mensaje-alerta")
+// Buscador
+const buscador = $("#buscador")
+const selectOrdenamiento = $("#ordenamiento")
 
 buscador.on("input", function() {
   var searchValue = $(this).val();
@@ -20,11 +15,22 @@ buscador.on("input", function() {
   mostrarContactos(searchValue)
 })
 
+// Notificaciones
+const toastId = $('#toastCustom')
+const toastController = bootstrap.Toast.getOrCreateInstance(toastId)
+const mensajeToast = $("#toast-message")
+
+// Alertas de busqueda
+const containerAlerta = $("#container-alerta")
+const mensajeAlerta = $("#mensaje-alerta")
+
+// Ordenamiento
 selectOrdenamiento.on("change", function() {
   var selectValue = $(this).val();
   mostrarContactos(null, selectValue);
 })
 
+// Controlador de contactos
 function obtenerContactos() {
   if (localStorage.getItem("contactos")) {
     return JSON.parse(localStorage.getItem("contactos"));
@@ -201,11 +207,14 @@ $("#btn-guardar").click(function () {
   }
 });
 
+// Controlador editar contacto
 $(document).on("click", ".btn-outline-primary", function () {
   let id = $(this).attr("data-id");
   formModal.show()
   llenarFormulario(id);
 });
+
+// Controlador eliminar contacto
 $(document).on("click", ".btn-outline-danger", function () {
   let id = $(this).attr("data-id");
   if (confirm("¿Estás seguro de que quieres eliminar este contacto?")) {
