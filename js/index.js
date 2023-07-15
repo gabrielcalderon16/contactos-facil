@@ -11,6 +11,11 @@ const toastId = $('#toastCustom')
 const toastController = bootstrap.Toast.getOrCreateInstance(toastId)
 const mensajeToast = $("#toast-message")
 
+const containerAlerta = $("#container-alerta")
+const mensajeAlerta = $("#mensaje-alerta")
+
+// TODO: show containerAlerta
+
 buscador.on("input", function() {
   var searchValue = $(this).val();
   console.log(searchValue)

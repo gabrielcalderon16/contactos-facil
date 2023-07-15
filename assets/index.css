@@ -1,5 +1,5 @@
 body {
-  background-image: linear-gradient(180deg, #eee, #fff 100px, #fff);
+  background-image: linear-gradient(180deg, #aeaeae, #fff 400px, #fff);
 }
 
 .container {
@@ -8,4 +8,24 @@ body {
 
 .pricing-header {
   max-width: 700px;
+}
+
+.texto-personalizado {
+  background-color: red;
+  background-image: linear-gradient(45deg, #5900ff, #ff0048);
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+
+h1 {
+  font-weight: normal;
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 0;
+  margin-bottom: -0.25em;
 }
