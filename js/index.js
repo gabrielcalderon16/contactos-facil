@@ -1,5 +1,12 @@
 // *** Formulario ***
 const formModal = new bootstrap.Modal('#formModal', {})
+const buscador = $("#buscador")
+
+buscador.on("input", function() {
+  var searchValue = $(this).val();
+  console.log(searchValue)
+  mostrarContactos(searchValue)
+})
 
 function obtenerContactos() {
   if (localStorage.getItem("contactos")) {
@@ -13,8 +20,17 @@ function guardarContactos(contactos) {
   localStorage.setItem("contactos", JSON.stringify(contactos));
 }
 
-function mostrarContactos() {
+function mostrarContactos(search) {
   let contactos = obtenerContactos();
+
+  
+  if (search) {
+    contactos = contactos.filter(({email, nombre, rol, telefono}) => {
+      return nombre.toLowerCase().includes(search) || rol.toLowerCase().includes(search)
+        || telefono.includes(search) || email.toLowerCase().includes(search)
+    })
+  }
+
   $("#cartas").empty();
   contactos.forEach((contacto, i) => {
     let carta = `
