@@ -1,11 +1,17 @@
 // *** Formulario ***
 const formModal = new bootstrap.Modal('#formModal', {})
 const buscador = $("#buscador")
+const selectOrdenamiento = $("#ordenamiento")
 
 buscador.on("input", function() {
   var searchValue = $(this).val();
   console.log(searchValue)
   mostrarContactos(searchValue)
+})
+
+selectOrdenamiento.on("change", function() {
+  var selectValue = $(this).val();
+  mostrarContactos(null, selectValue);
 })
 
 function obtenerContactos() {
@@ -20,7 +26,7 @@ function guardarContactos(contactos) {
   localStorage.setItem("contactos", JSON.stringify(contactos));
 }
 
-function mostrarContactos(search) {
+function mostrarContactos(search, sort) {
   let contactos = obtenerContactos();
 
   
@@ -29,6 +35,20 @@ function mostrarContactos(search) {
       return nombre.toLowerCase().includes(search) || rol.toLowerCase().includes(search)
         || telefono.includes(search) || email.toLowerCase().includes(search)
     })
+  }
+
+  if (sort) {
+    contactos = contactos.sort(function(a, b) {
+      var nombreA = a.nombre.toLowerCase();
+      var nombreB = b.nombre.toLowerCase();
+
+      if (sort === 'asc') {
+        return nombreA.localeCompare(nombreB);
+      } else {
+        return -nombreA.localeCompare(nombreB);
+      }
+
+    });
   }
 
   $("#cartas").empty();

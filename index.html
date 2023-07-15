@@ -64,7 +64,17 @@
     <!-- App  -->
     <main>
       <div class="container">
-        <h1>Contáctos</h1>
+        <div class="d-flex justify-content-between">
+            <h1>Contáctos</h1>
+            <div>
+              <label for="ordenamiento" class="form-label">Ordenar</label>
+              <select class="form-select" aria-label="Default select example" id="ordenamiento">
+                <option selected>Selecciona</option>
+                <option value="asc">Ascendente</option>
+                <option value="des">Descendente</option>
+              </select>
+            </div>
+        </div>
         <p class="fs-5 text-muted">Aquí puedes crear, leer, actualizar y eliminar tus contactos.</p>
 
         <!-- Modal para el formulario -->
